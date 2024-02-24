@@ -8,6 +8,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { useOutsideClick } from "./useOutsideClick";
+import Button from "./components/Button";
 
 type ModalContextProps = {
   isOpen: boolean;
@@ -104,6 +105,37 @@ const Footer = ({ children }: { children: ReactNode }) => {
   );
 };
 
+const CancelButton = ({ label = "Cancel" }: { label?: string }) => {
+  const { close } = useContext(ModalContext);
+
+  return (
+    <Button variant="secondary" onClick={close}>
+      {label}
+    </Button>
+  );
+};
+
+const ActionButton = ({
+  label,
+  onClick = () => {},
+}: {
+  label: string;
+  onClick: () => void;
+}) => {
+  const { close } = useContext(ModalContext);
+
+  return (
+    <Button
+      onClick={() => {
+        onClick();
+        close();
+      }}
+    >
+      {label}
+    </Button>
+  );
+};
+
 const CloseAction = ({ children }: { children: ReactElement }) => {
   const { close } = useContext(ModalContext);
 
@@ -114,5 +146,7 @@ Modal.Open = Open;
 Modal.Window = Window;
 Modal.Footer = Footer;
 Modal.CloseAction = CloseAction;
+Modal.CancelButton = CancelButton;
+Modal.ActionButton = ActionButton;
 
 export default Modal;
