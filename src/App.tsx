@@ -12,8 +12,19 @@ function App() {
           <Modal.Window title="Fehler aufgetretten">
             <div>Content</div>
             <Modal.Footer>
-              <Button variant="secondary">Close</Button>
-              <Button>Speichern</Button>
+              <Modal.CloseAction>
+                <Button
+                  variant="secondary"
+                  onClick={() => console.log("schliessen")}
+                >
+                  Close
+                </Button>
+              </Modal.CloseAction>
+              <Modal.CloseAction>
+                <Button onClick={() => console.log("speichern")}>
+                  Speichern
+                </Button>
+              </Modal.CloseAction>
             </Modal.Footer>
           </Modal.Window>
         </Modal>
