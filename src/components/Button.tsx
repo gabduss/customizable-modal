@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { ReactNode, forwardRef } from "react";
 
 type ButtonProps = {
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "tertiary" | "destructive";
   children: ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: (event: React.MouseEvent<HTMLElement>) => Promise<any> | void;
@@ -16,6 +16,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       {
         "bg-violet-600 text-white rounded enabled:hover:bg-violet-800 disabled:bg-gray-medium":
           variant === "primary",
+        "bg-red-500 text-white rounded enabled:hover:bg-violet-800 disabled:bg-gray-medium":
+          variant === "destructive",
         "bg-transparent text-violet-600 rounded ring-2 ring-inset ring-violet-600 enabled:hover:text-violet-800 enabled:hover:ring-violet-800 disabled:text-gray-medium disabled:ring-gray-medium":
           variant === "secondary",
         "bg-transparent text-violet-600 enabled:hover:text-violet-800 disabled:text-gray-medium":
