@@ -19,7 +19,7 @@ Wir benötigen also verschiedenen Parameter um den Dialog entsprechend zu konfig
 ```
 
 Der Dialog sieht nun wie folgt aus:
-![Delete Dialog](/Public/DeleteDialog.png)
+![Delete Dialog](https://github.com/gabduss/customizable-modal/blob/main/public/DeleteDialog.png)
 
 Die nächste Anfordung ist es, dass im Dialog für das umbnennen gewünscht ist, bei welchem man im Dialog einen neuen File Namen eingeben kann. Der Inhalt des Dialoges besteht neu also nicht nur noch aus einem Text, sondern beinhaltet eine Input Feld. Dies müssen wir dem Dialog übergeben können.
 Die nächste Anforderung ist es die Dokumente in eine Bild zu Konvertieren. Der Bestätigungsdialog soll nun drei Buttons haben: "Cancel", "Zu PNG konvertieren", "Zu JPG konvertieren". Wir müssen jetzt also noch einen dritten Button einführen und konfigurierbar machen.
@@ -48,7 +48,7 @@ Im folgenden Kapitel implementieren wir einen Dialog mit dem Compound component 
 
 Let's first see how a Dialog looks like, what's common with all of them and what has to be customizable.
 
-![Delete Dialog](/Public/DialogParts.png)
+![Delete Dialog](https://github.com/gabduss/customizable-modal/blob/main/public/DialogParts.png)
 
 - Title: The title has always the same font style but the text has to be customizalbe
 - Close Button: The close button has to be identical
