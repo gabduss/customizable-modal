@@ -1,13 +1,10 @@
 # The Art of Component Composition: Leveraging Compound Components in React
 
-As front end application gets bigger and bigger, they have to cover more and more use cases and therfore their UI component needs to get more flexiable.
-This blog post describes how the requirements for a UI component increase over the course of a typical project. We show what problems this entails and how they can be solved with the Compound Component Pattern.
+As frontend applications get bigger and bigger, they have to cover more and more use cases and therefore their UI components need to get more flexible. This blog post describes how the requirements for a UI component increase over the course of a typical project. We show what problems this entails and how they can be solved with the Compound Component Pattern.
 
 ## The problem using the example of a dialog
 
-We have a React application with which you can manage files. One feature is to delete files, another is to duplicate a file. For both actions, the action should be confirmed with a dialog. Since deleting is a destructive action, we also want to color the delete button in the dialog red.
-In such a case, we want to implement a dialog component that we can use for both cases.
-We therefore need various parameters to configure the dialog accordingly. The following code shows how the call of such a component could look like:
+We have a React application with which you can manage files. One feature is to delete files, another is to duplicate a file. For both actions, the actions should be confirmed with a dialog. Since deleting is a destructive action, we also want to color the delete button in the dialog red. In such a case, we want to implement a dialog component that we can use for both actions. We, therefore, need various parameters to configure the dialog accordingly. The following code shows how the call of such a component could look like:
 
 ```typescript
 <Dialog
@@ -117,7 +114,7 @@ const Open = ({ children }: { children: ReactElement }) => {
 };
 ```
 
-The Window component describes the dialog itself and implents the parts of the dialog that are not customizable, like to close button on the upper right corner. The component can receive children like the footer or the content.
+The Window component describes the dialog itself and implements the parts of the dialog that are not customizable, like the close button on the upper right corner. The component can receive children like the footer or the content.
 
 ```typescript
 // Dialog.tsx
@@ -254,7 +251,7 @@ We defined our dialog and can start using it. The following example shows a exam
 </Dialog>
 ```
 
-As you can see you are very flexable with the configuration of the dialog. You don't need to close or open the dialog yourself, it is handled for you. It is easy to and new buttons with different actions or to add you owen components to the dialog. In the following github repoository, you will find a example with a input field, where the input will be used after the click of an action button: https://github.com/gabduss/customizable-modal
+As you can see you are very flexible with the configuration of the dialog. You don't need to close or open the dialog yourself, it is handled for you. It is easy to and new buttons with different actions or to add you own components to the dialog. In the following github repository, you will find a example with a input field, where the input will be used after the click of an action button: https://github.com/gabduss/customizable-modal
 
 ## Conclusion
 
