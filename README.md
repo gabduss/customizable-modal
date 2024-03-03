@@ -46,6 +46,8 @@ In the following chapter we implement a dialog with the compound component patte
 
 Let's first see what a Dialog looks like, what's common with all of them, and what has to be customizable.
 
+![Parts of a dialog](https://github.com/gabduss/customizable-modal/blob/main/public/DialogParts.png)
+
 - Title: The title has always the same font style but the text has to be customizable
 - Close Button: The close button has to be identical
 - Content: the content can be completely different
