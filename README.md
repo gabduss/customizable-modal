@@ -1,13 +1,13 @@
 # The Art of Component Composition: Leveraging Compound Components in React
 
 As front end application gets bigger and bigger, they have to cover more and more use cases and therfore their UI component needs to get more flexiable.
-Dieser Blog Post beschreibt wie sich die Anforderungen an eine UI Komponente, im laufe eines typischen Projektes, vergrössert. Wir zeigen auf, welche Probleme dies mit sich bringt und wie diese mit dem Compound Component Pattern lösen können.
+This blog post describes how the requirements for a UI component increase over the course of a typical project. We show what problems this entails and how they can be solved with the Compound Component Pattern.
 
-## Das Problem am Beispiel eines Dialoges
+## The problem using the example of a dialog
 
-Wir haben eine React applikation, mit welchem man Dateien verwalten kann. Ein Features ist es, Dateien zu löschen eine anderes eine Datei zu duplizieren. Bei beiden Aktionen soll die Aktion mit einenm Dialog bestätigt werden. Da das Löschen eine Destructive Aktion ist, wollen wir den Löschen Button im Dialog zusätzlich rot einfärben.
-In einem solchen Fall, wollen wir eine Dialog Komponente implementieren, welche wir für beide Fälle verwenden können.
-Wir benötigen also verschiedenen Parameter um den Dialog entsprechend zu konfigurieren. Folgender Code zeigt wie der aufruf einer solchen Komponente aussehen könnte:
+We have a React application with which you can manage files. One feature is to delete files, another is to duplicate a file. For both actions, the action should be confirmed with a dialog. Since deleting is a destructive action, we also want to color the delete button in the dialog red.
+In such a case, we want to implement a dialog component that we can use for both cases.
+We therefore need various parameters to configure the dialog accordingly. The following code shows how the call of such a component could look like:
 
 ```typescript
 <Dialog
@@ -18,31 +18,32 @@ Wir benötigen also verschiedenen Parameter um den Dialog entsprechend zu konfig
 />
 ```
 
-Der Dialog sieht nun wie folgt aus:
+The dialog now looks like this:
+
 ![Delete Dialog](https://github.com/gabduss/customizable-modal/blob/main/public/DeleteDialog.png)
 
-Die nächste Anfordung ist es, dass im Dialog für das umbnennen gewünscht ist, bei welchem man im Dialog einen neuen File Namen eingeben kann. Der Inhalt des Dialoges besteht neu also nicht nur noch aus einem Text, sondern beinhaltet eine Input Feld. Dies müssen wir dem Dialog übergeben können.
-Die nächste Anforderung ist es die Dokumente in eine Bild zu Konvertieren. Der Bestätigungsdialog soll nun drei Buttons haben: "Cancel", "Zu PNG konvertieren", "Zu JPG konvertieren". Wir müssen jetzt also noch einen dritten Button einführen und konfigurierbar machen.
-Wir sind erst am Anfang userer Applikation und die Anzahl der Paramter fängt schon an aus dem Ufer zu laufen. Es kommen noch viele Anforderungen auf uns zu, abseits des File Managements, welche wieder andere Anfordung an den Dialog haben.
+The next requirement is that in the dialog for renaming is desired, in which you can enter a new file name in the dialog. The content of the dialog does not only consist of a text, but also contains an input field. We must be able to pass this to the dialog.
+The next requirement is to convert the documents into an image. The confirmation dialog should now have three buttons: "Cancel", "Convert to PNG", "Convert to JPG". We now need to introduce a third button and make it configurable.
+We are only at the beginning of our application and the number of parameters is already starting to get out of hand. There are still many requirements to come, apart from the file management, which have other requirements for the dialog.
 
-Wenn wir keine riesige, unübersichtliche Dialog Komponente wollen, welcher voller Konfigurationsparamter ist, müssen wir einen anderen Ansatz wählen. Ein Ansatz der immer wieder gewählt wird, ist es verschieden Subtypen von Dialogen zu implementieren. Statt einen Dialog hat man einen ConfirmDialog, dieser wird nur dann genutzt, wenn eine Aktion bestätigt werden muss und benötigt entsprechend wenig Konfigurationsparameter. Ein andere Dialog heisst vielleicht CalculateTaxDialog, mit diesem Dialog werden wieder andere Anforderungen abgedekt.
-Verschieden Dialoge zu haben, birgt aber die Gefahr, dass sie ausseinander laufen und eine anderes Look and Feel bekommen. Nicht selten gibt es dann so viele Dialoge, dass eizelne Entwickler nicht alle kennnen und beginnen neuen Dialoge einzuführen, obwohl es schon einen Dialog für eine ähnliche Anfordung gibt.
+If we don't want a huge, confusing dialog component that is full of configuration parameters, we need to take a different approach. One approach that is often chosen is to implement different subtypes of dialogs. Instead of a dialog, you have a ConfirmDialog, which is only used when an action needs to be confirmed and requires correspondingly few configuration parameters. Another dialog might be called CalculateTaxDialog, with this dialog other requirements are covered.
+Having different dialogs, however, carries the risk that they run into each other and get a different look and feel. Often there are so many dialogs that some developers don't know all of them and start introducing new dialogs, even though there is already a dialog for a similar requirement.
 
-Hier kommt uns das Compound Component pattern zu Hilfe.
+This is where the Compound Component pattern comes to the rescue.
 
 ## The compound component pattern
 
-The compound component pattern is a component compsition pattern. Das Ziel ist es statt eine grosse Komponente, viele kleine Komponente zu haben, welche alle viel weniger Konfigurationsparameter benötigen.
-Um eine Compound Component zu implementieren braucht es immer vier Schritte:
+The compound component pattern is a component composition pattern. The aim is to have many small components instead of one large component, all of which require far fewer configuration parameters.
+It always takes four steps to implement a compound component:
 
 1. Create a Context
 2. Create a parent component
 3. Create child components
 4. Add child components as properties to the parent components
 
-Alle child components können beliebg kombiniert werden und haben einen gemeinsamen Kontext.
-Der gemeinsame Kontext macht das Pattern so Powerful. Nicht viele React Entwickler kennen und nutzen das Pattern. In Komponenten libraries wird das pattern aber oft angewant, da die Komponenten von verschiedenen Nutzern anderst gebraucht werden und entsprechend hohe flexibilität benötigen. Ein bekanntes Beispiel ist die Headless UI library von tailwind labs.
-Im folgenden Kapitel implementieren wir einen Dialog mit dem Compound component Pattern. Das Beispiel wir zeigen, wie die Subkomponent implementiert werden und wie der gemeinsame Kontext erstellt wird.
+All child components can be combined as desired and have a common context.
+The shared context is what makes the pattern so powerful. Not many React developers know and use the pattern. However, the pattern is often used in component libraries, as the components are used differently by different users and require a correspondingly high level of flexibility. A well-known example is the Headless UI library from tailwind labs.
+In the following chapter we implement a dialog with the Compound component pattern. The example will show how the subcomponents are implemented and how the common context is created.
 
 ## Implementing a Dialog with the compound component pattern
 
@@ -56,10 +57,10 @@ Let's first see how a Dialog looks like, what's common with all of them and what
 - Footer: The footer has always the same style, but the buttons have to be customizable. Not only the the text has to be customizalbe but also the style, the triggered action and the number of buttons.
 - Background: A click on the background should always close the dialog
 
-Bevor wir Anfgaen wollen wir noch zwei Grundsätze festlegen:
+Before we start, we want to define two principles:
 
-- Der Style der Komponente soll für alle Dialoge der gleiche sein. Der Nutzer der Komponente solle sich nicht darum kümmern müssen.
-- Das schliessen des Dialoges über den Klick auf den Hintergrund, den Close Button oder die Action Buttons ist ein Concern des Dialoges. Der Anweder des Dialoges soll sich weder um die Logik für das öffnen noch um die des Schliessens kümmern müssen.
+- The style of the component should be the same for all dialogs. The user of the component should not have to worry about it.
+- Closing the dialog by clicking on the background, the close button or the action buttons is a concern of the dialog. The user of the dialog should not have to worry about the logic for opening or closing it.
 
 Now, let's start with the implementation:
 
@@ -257,4 +258,4 @@ As you can see you are very flexable with the configuration of the dialog. You d
 
 ## Conclusion
 
-Wenn du eine React Komponente implementierst, welche viel flexibilität benötige, überlege dir das component component pattern zu verwenden. Speziell nützlich wird das Pattern, wenn du eine Komponenten library implementierts, welche in verschiedenen Projekten eingesetzt wird. Die Chancen sind sehr gross das die verschiedenen Projekte die Komponente ein wenig anders verwenden wollen. In diesen Fällen, hilf dir das compound component pattern die nötige flexibilität zu geben.
+If you are implementing a React component that requires a lot of flexibility, consider using the component component pattern. The pattern is particularly useful if you are implementing a component library that is used in different projects. Chances are that the different projects will want to use the component slightly differently. In these cases, the compound component pattern helps to give you the necessary flexibility.
