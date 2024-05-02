@@ -60,14 +60,14 @@ const Window = ({
         ref={ref}
       >
         {title && (
-          <h2 className="fixed left-8 top-4 text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="fixed left-8 top-4 text-xl font-semibold text-gray-900">
             {title}
           </h2>
         )}
         <button
           type="button"
           onClick={close}
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-md text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white top-2 right-2 fixed"
+          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-md text-sm w-8 h-8 ms-auto inline-flex justify-center items-center top-2 right-2 fixed"
         >
           <svg
             className="w-3 h-3"
